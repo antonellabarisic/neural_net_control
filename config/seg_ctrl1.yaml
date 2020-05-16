@@ -1,0 +1,14 @@
+ctrl1/alpha: 0.9
+ctrl1/beta: 0.9
+ctrl1/bottom_limit: 0.45
+ctrl1/upper_limit: 1.0
+ctrl1/left_limit: 0.1
+ctrl1/right_limit: 0.9
+ctrl1/value_limit: 0.5
+ctrl1/v_max: 2.5
+ctrl1/max_angle: 30
+
+ctrl1/angle: 1.686 #1.686 -2.954 1.677
+ctrl1/x: 250.0 #250.0 3.8 -116.8
+ctrl1/y: -114.0 #-114.0 -103.0 -185.2
+ctrl1/z: 16.0 #15.0 44.0 50.0

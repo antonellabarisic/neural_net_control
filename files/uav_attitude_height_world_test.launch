@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <arg name="enable_logging" default="true"/>
+  <arg name="enable_ground_truth" default="true"/>
+  <arg name="log_file" default="uav"/>
+
+  <arg name="model_type" default="uav" />
+
+  <arg name="name" default="uav" />
+  <arg name="x" default="250.0" />
+  <arg name="y" default="-114.0" />
+  <arg name="z" default="16.0" />
+
+  <arg name="manipulator_type" default="none" />
+  <arg name="manipulator_tool" default="rod" />
+  <arg name="start_gazebo" default="true" />
+  <arg name="mount_magnet" default="false" />
+
+
+  <!-- Launch gazebo -->
+  <group if="$(arg start_gazebo)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <!--arg name="world_name" value="$(find neural_net_control)/worlds/test.world"/-->
+      <!--arg name="world_name" value="$(find neural_net_control)/worlds/simple_labyrinth.world"/-->
+      <!--arg name="world_name" value="$(find neural_net_control)/worlds/road_car3.world"/-->
+      <arg name="world_name" value="$(find neural_net_control)/worlds/track.world"/>
+      <arg name="debug" value="$(arg debug)" />
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="paused" value="$(arg paused)"/>
+      <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+      <arg name="headless" value="$(arg headless)"/>
+    </include>
+  </group>
+
+  <include file="$(find mmuav_description)/launch/spawn_uav.launch">
+    <arg name="model_type" value="$(arg model_type)" />
+    <arg name="name" value="$(arg name)" />
+    <arg name="x" value="$(arg x)" />
+    <arg name="y" value="$(arg y)" />
+    <arg name="z" value="$(arg z)" />
+    <arg name="manipulator_type" value="$(arg manipulator_type)" />
+    <arg name="manipulator_tool" value="$(arg manipulator_tool)" />
+    <arg name="mount_magnet" value="$(arg mount_magnet)" />
+  </include>
+
+  <!-- Start attitude height control -->
+  <include file="$(find mmuav_control)/launch/rotors_variation_attitude_height_control.launch">
+  </include>
+  
+  <rosparam file="$(find neural_net_control)/config/seg_ctrl1.yaml" />
+
+<!--   <group if="$(eval 'wp_manipulator' == manipulator_type)">
+    <include file="$(find aerial_manipulators_control)/launch/wp_manipulator_gazebo_control.launch">
+      <arg name="namespace" value="$(arg name)" />
+      <arg name="velocity_control_file" default="$(find mmuav_control)/config/wp_manipulator_velocity_control.yaml"/>
+    </include>
+
+    <node name="joint_trajectory_to_uav_and_manipulator" pkg="mmuav_control" type="joint_trajectory_to_uav_and_wp_manipulator_reference.py" ns="uav"/>
+  </group> -->
+
+</launch>

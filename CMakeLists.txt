@@ -143,6 +143,10 @@ add_executable(track_seg src/track_seg.cpp)
 target_link_libraries(track_seg ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES})
 add_executable(seg_control3 src/seg_control3.cpp)
 target_link_libraries(seg_control3 ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES})
+
+add_executable(seg_control3mod src/seg_control3_simple_modification.cpp)
+target_link_libraries(seg_control3mod ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES})
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
